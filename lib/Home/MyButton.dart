@@ -5,10 +5,12 @@ class MyButton extends StatelessWidget {
   String title;
   String type;
   int flex;
+  Function changeTitleOnScreen;
 
   MyButton({
     required this.title,
     required this.type,
+    required this.changeTitleOnScreen,
     this.flex = 1,
   });
 
@@ -19,7 +21,9 @@ class MyButton extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(10),
         child: ElevatedButton(
-            onPressed: () {},
+            onPressed: (){
+              changeTitleOnScreen(title);
+            },
             style: ButtonStyle(
               elevation: MaterialStateProperty.all(5),
               backgroundColor: type == "num" ? MaterialStateProperty.all(MyTheme.gray)

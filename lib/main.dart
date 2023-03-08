@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numericalanalysis/Home/HomeScreen.dart';
+import 'package:numericalanalysis/Home/HomeScreenView.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
 
 void main (){
