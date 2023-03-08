@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          // top Screen
           Expanded(
             flex: 2,
             child: Container(
@@ -18,8 +19,8 @@ class HomeScreen extends StatelessWidget {
                 boxShadow:const [
                   BoxShadow(
                     color: MyTheme.black,
-                    blurRadius: 10,
-                    offset: Offset(-5,5)
+                    blurRadius: 0,
+                    offset: Offset(-0,5)
                   )
                 ],
                 color: MyTheme.green
@@ -36,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                     BoxShadow(
                         color: MyTheme.black,
                         blurRadius: 10,
-                        offset: Offset(-5,5)
+                        offset: Offset(-3,5)
                     )
                   ],
                   color: MyTheme.red,
