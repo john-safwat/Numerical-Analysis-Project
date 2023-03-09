@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   flex: 3,
                   child: Container(
                     margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
@@ -65,12 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    MyButton(title: "nan", type: "math" ,changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "nan", type: "math" ,changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "√", type: "math",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "^", type: "math" ,changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "%", type: "math" ,changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "/", type: "op",changeTitleOnScreen: ChangeTitleOnScreen),
+                    MyButton(title: "(", type: "math" ,changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: ")", type: "math" ,changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "√", type: "math",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "^", type: "math" ,changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "%", type: "math" ,changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "/", type: "op",changeTitleOnScreen: changeTitleOnScreen),
                   ],
                 ),
               ),
@@ -79,12 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    MyButton(title: "nan", type: "math" ,changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "nan", type: "math",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "7", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "8", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "9", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "*", type: "op",changeTitleOnScreen: ChangeTitleOnScreen),
+                    MyButton(title: "Sin", type: "math" ,changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "Cos", type: "math",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "7", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "8", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "9", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "*", type: "op",changeTitleOnScreen: changeTitleOnScreen),
                   ],
                 ),
               ),
@@ -93,42 +93,66 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    MyButton(title: "nan", type: "math",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "nan", type: "math",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "4", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "5", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "6", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "-", type: "op",changeTitleOnScreen: ChangeTitleOnScreen),
+                    MyButton(title: "Tan", type: "math",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "X", type: "math",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "4", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "5", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "6", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                    MyButton(title: "-", type: "op",changeTitleOnScreen: changeTitleOnScreen),
                   ],
                 ),
               ),
+
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    MyButton(title: "nan", type: "math",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "nan", type: "math",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "1", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "2", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "3", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "+", type: "op",changeTitleOnScreen: ChangeTitleOnScreen),
+                    Expanded(
+                      flex : 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          MyButton(title: "Home", type: "op",changeTitleOnScreen: changeTitleOnScreen),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                MyButton(title: "Clear", type: "math",changeTitleOnScreen: changeTitleOnScreen),
+                                MyButton(title: "1", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                                MyButton(title: "2", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                                MyButton(title: "3", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                                MyButton(title: "+", type: "op",changeTitleOnScreen: changeTitleOnScreen),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                MyButton(title: "Back", type: "math",changeTitleOnScreen: changeTitleOnScreen),
+                                MyButton(title: "0", type: "num", flex: 2,changeTitleOnScreen: changeTitleOnScreen),
+                                MyButton(title: ".", type: "num",changeTitleOnScreen: changeTitleOnScreen),
+                                MyButton(title: "Next", type: "op",changeTitleOnScreen: changeTitleOnScreen),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    MyButton(title: "nan", type: "math",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "nan", type: "math",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "0", type: "num", flex: 2,changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: ".", type: "num",changeTitleOnScreen: ChangeTitleOnScreen),
-                    MyButton(title: "=", type: "op",changeTitleOnScreen: ChangeTitleOnScreen),
-                  ],
-                ),
-              ),
+              )
             ],
           ),
         ),
@@ -136,7 +160,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void ChangeTitleOnScreen (String title){
+  void changeTitleOnScreen (String title){
     viewModel.changeTitleOnScreen(title);
   }
+
 }
