@@ -35,7 +35,7 @@ class MyButton extends StatelessWidget {
             ),
             child: Text(
               title,
-              style:const TextStyle(
+              style:const  TextStyle(
                 color: MyTheme.white,
                 fontSize: 22,
               ),
