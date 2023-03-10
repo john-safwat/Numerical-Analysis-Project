@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName :(_) => HomeScreen(),
       },
       theme: MyTheme.themeData,
-      initialRoute: FormScreen.routeName,
+      initialRoute: MainScreen.routeName,
     );
 
   }

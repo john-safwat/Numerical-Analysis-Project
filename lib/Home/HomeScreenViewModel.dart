@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:numericalanalysis/Home/HomeScreenNavigator.dart';
 
 class HomeScreenViewModel extends ChangeNotifier{
+  HomeScreenNavigator? navigator;
   String titleOnScreen = 'Enter Equation';
   String validationMessage = "Valid Equation";
   int openingBracketCount = 0 ;
@@ -44,6 +46,7 @@ class HomeScreenViewModel extends ChangeNotifier{
       return;
     }
     if (title == "Home"){
+      navigator?.goToFormScreen();
       return;
     }
     _changeTextOnScreen(title);

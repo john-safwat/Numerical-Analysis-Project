@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numericalanalysis/Home/HomeScreenNavigator.dart';
 import 'package:numericalanalysis/Home/HomeScreenViewModel.dart';
 import 'package:numericalanalysis/Home/MyButton.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
@@ -10,9 +11,18 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> implements HomeScreenNavigator{
   HomeScreenViewModel viewModel = HomeScreenViewModel();
-
+  @override
+  void initState() {
+    super.initState();
+    viewModel.navigator = this;
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    viewModel.navigator = null;
+  }
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -248,68 +258,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   )),
-              // Expanded(
-              //   flex: 1,
-              //   child: Row(
-              //     crossAxisAlignment: CrossAxisAlignment.stretch,
-              //     children: [
-              //       MyButton(
-              //           title: "e",
-              //           type: "math",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: "Back",
-              //           type: "math",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: "1",
-              //           type: "num",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: "2",
-              //           type: "num",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: "3",
-              //           type: "num",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: "+",
-              //           type: "op",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //     ],
-              //   ),
-              // ),
-              //
-              // Expanded(
-              //   flex: 1,
-              //   child: Row(
-              //     crossAxisAlignment: CrossAxisAlignment.stretch,
-              //     children: [
-              //       MyButton(
-              //           title: "Home",
-              //           type: "op",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: "Clear",
-              //           type: "math",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: "0",
-              //           type: "num",
-              //           flex: 2,
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: ".",
-              //           type: "num",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //       MyButton(
-              //           title: "Next",
-              //           type: "op",
-              //           changeTitleOnScreen: changeTitleOnScreen),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -319,5 +267,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void changeTitleOnScreen(String title) {
     viewModel.changeTitleOnScreen(title);
+  }
+
+  @override
+  void goToFormScreen() {
+    Navigator.pop(context);
+  }
+
+  @override
+  void goToResultScreen() {
+
   }
 }
