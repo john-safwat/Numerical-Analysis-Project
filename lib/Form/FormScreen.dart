@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:numericalanalysis/Form/FormNavigator.dart';
 import 'package:numericalanalysis/Form/FormScreenViewModel.dart';
 import 'package:numericalanalysis/Home/HomeScreenView.dart';
+import 'package:numericalanalysis/Provider/objectProvider.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,7 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
   @override
   Widget build(BuildContext context) {
     var title = ModalRoute.of(context)?.settings.arguments as String;
+    var provider = Provider.of<ObjectProvider>(context);
     return ChangeNotifierProvider(
       create: (context) => viewModel,
       child: Scaffold(
@@ -77,17 +79,30 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                        onPressed: () {viewModel.goToMainScreen();},
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(MyTheme.red),
-                        ),
-                        child: const Icon(Icons.navigate_before)),
+                      onPressed: () {viewModel.goToMainScreen();},
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(MyTheme.red),
+                      ),
+                      child: const Icon(Icons.navigate_before)),
                     ElevatedButton(
-                        onPressed: () {viewModel.goToHomeScreen(formKey.currentState!.validate());},
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(MyTheme.red),
-                        ),
-                        child: const Icon(Icons.navigate_next))
+                      onPressed: () {
+                        viewModel.goToHomeScreen(
+                          formKey.currentState!.validate() ,
+                          provider,
+                          type: title ,
+                          x: xController.text,
+                          xl: xlController.text,
+                          xu: xuController.text,
+                          xOfI: xOfIlController.text,
+                          error: errorController.text,
+                          xOfIMin1: xOfIlController.text,
+                          numberOfIterations: iterationController.text,
+                        );
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(MyTheme.red),
+                      ),
+                      child: const Icon(Icons.navigate_next))
                   ],
                 ),
               )
@@ -112,7 +127,7 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
         cursorColor: Colors.white,
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
+          FilteringTextInputFormatter.allow(RegExp('[0-9.,-]+')),
         ],
         decoration: InputDecoration(
           filled: true,

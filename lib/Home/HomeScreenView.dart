@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:numericalanalysis/Home/HomeScreenNavigator.dart';
 import 'package:numericalanalysis/Home/HomeScreenViewModel.dart';
 import 'package:numericalanalysis/Home/MyButton.dart';
+import 'package:numericalanalysis/Provider/objectProvider.dart';
+import 'package:numericalanalysis/Result/ResultScreen.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> implements HomeScreenNavigator{
   HomeScreenViewModel viewModel = HomeScreenViewModel();
+
   @override
   void initState() {
     super.initState();
@@ -276,6 +279,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeScreenNavigator{
 
   @override
   void goToResultScreen() {
-
+    var provider = Provider.of<ObjectProvider>(context , listen: false);
+    provider.setEquation(viewModel.titleOnScreen);
+    Navigator.pushNamed(context, ResultScreen.routeName);
   }
 }
