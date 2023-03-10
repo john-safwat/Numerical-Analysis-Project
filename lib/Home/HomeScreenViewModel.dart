@@ -43,6 +43,12 @@ class HomeScreenViewModel extends ChangeNotifier{
       return;
     }
     if (title == "Next"){
+      if (titleOnScreen == "Enter Equation"){
+        validationMessage = "You Can't Show Results Without Adding Equation";
+        notifyListeners();
+      }else{
+        navigator?.goToResultScreen();
+      }
       return;
     }
     if (title == "Home"){
