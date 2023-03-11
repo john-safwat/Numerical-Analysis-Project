@@ -14,7 +14,7 @@ class ObjectProvider extends ChangeNotifier {
     if(bisection!= null){
       bisection!.equation = equation;
     }else if (falsePosition != null){
-
+      falsePosition!.equation = equation;
     }else if (sampleFixedPoint != null){
 
     }else if (newton != null){
