@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.0.5
   carousel_slider: ^4.2.1
   math_expressions: ^2.3.1
+  calculess: ^1.0.2
 
 dev_dependencies:
   flutter_test:

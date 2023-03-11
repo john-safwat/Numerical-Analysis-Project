@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:numericalanalysis/Form/FormNavigator.dart';
 import 'package:numericalanalysis/Models/Bisection.dart';
 import 'package:numericalanalysis/Models/FalsePosition.dart';
+import 'package:numericalanalysis/Models/Newton.dart';
+import 'package:numericalanalysis/Models/SampleFixedPoint.dart';
 import 'package:numericalanalysis/Provider/objectProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -23,33 +25,49 @@ class FormScreenViewModel extends ChangeNotifier {
         var xuI = double.parse(xu);
         var errorStopPoint = double.parse(error);
         if(numberOfIterations.isEmpty){
-          Bisection bisection = Bisection(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint);
-          provider.bisection = bisection;
+          provider.bisection = Bisection(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint);
           navigator?.goToHomeScreen();
         } else {
           var iterations = int.parse(numberOfIterations);
-          Bisection bisection = Bisection(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint , iterationLimit: iterations);
-          provider.bisection = bisection;
+          provider.bisection = Bisection(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint , iterationLimit: iterations);
           navigator?.goToHomeScreen();
         }
-      }
-      else if (type == 'FalsePosition'){
+      } else if (type == 'FalsePosition'){
         var xlI = double.parse(xl);
         var xuI = double.parse(xu);
         var errorStopPoint = double.parse(error);
         if(numberOfIterations.isEmpty){
-          FalsePosition falsePosition = FalsePosition(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint);
-          provider.falsePosition= falsePosition;
+          provider.falsePosition = FalsePosition(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint);
           navigator?.goToHomeScreen();
         } else {
           var iterations = int.parse(numberOfIterations);
-          FalsePosition falsePosition = FalsePosition(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint , iterationLimit: iterations);
-          provider.falsePosition = falsePosition;
+          provider.falsePosition = FalsePosition(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint , iterationLimit: iterations);
+          navigator?.goToHomeScreen();
+        }
+      }else if (type == 'SampleFixedPoint'){
+        var xI = double.parse(x);
+        var errorStopPoint = double.parse(error);
+        if(numberOfIterations.isEmpty){
+          provider.sampleFixedPoint = SampleFixedPoint(xI: xI, errorStopPoint: errorStopPoint);
+          navigator?.goToHomeScreen();
+        } else {
+          var iterations = int.parse(numberOfIterations);
+          provider.sampleFixedPoint = SampleFixedPoint(xI: xI, errorStopPoint: errorStopPoint , iterationLimit: iterations);
+          navigator?.goToHomeScreen();
+        }
+      }else if (type == 'Newton'){
+        var xI = double.parse(x);
+        var errorStopPoint = double.parse(error);
+        if(numberOfIterations.isEmpty){
+          provider.newton =  Newton(xI: xI, errorStopPoint: errorStopPoint);
+          navigator?.goToHomeScreen();
+        } else {
+          var iterations = int.parse(numberOfIterations);
+          provider.newton =  Newton(xI: xI, errorStopPoint: errorStopPoint , iterationLimit: iterations);
           navigator?.goToHomeScreen();
         }
       }
     }
-
   }
 
   void goToMainScreen() {
