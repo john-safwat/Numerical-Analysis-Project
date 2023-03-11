@@ -127,7 +127,7 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
         cursorColor: Colors.white,
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp('[0-9.,-]+')),
+          FilteringTextInputFormatter.allow(RegExp('[0-9,.,-]+')),
         ],
         decoration: InputDecoration(
           filled: true,
