@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:numericalanalysis/Form/FormNavigator.dart';
 import 'package:numericalanalysis/Models/Bisection.dart';
+import 'package:numericalanalysis/Models/FalsePosition.dart';
 import 'package:numericalanalysis/Provider/objectProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class FormScreenViewModel extends ChangeNotifier {
       required String error,
       required String numberOfIterations}) {
     if (formValidation) {
-      if (type == 'Bisection'){
+      if (type == 'Bisection' ){
         var xlI = double.parse(xl);
         var xuI = double.parse(xu);
         var errorStopPoint = double.parse(error);
@@ -32,7 +33,23 @@ class FormScreenViewModel extends ChangeNotifier {
           navigator?.goToHomeScreen();
         }
       }
+      else if (type == 'FalsePosition'){
+        var xlI = double.parse(xl);
+        var xuI = double.parse(xu);
+        var errorStopPoint = double.parse(error);
+        if(numberOfIterations.isEmpty){
+          FalsePosition falsePosition = FalsePosition(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint);
+          provider.falsePosition= falsePosition;
+          navigator?.goToHomeScreen();
+        } else {
+          var iterations = int.parse(numberOfIterations);
+          FalsePosition falsePosition = FalsePosition(xlI: xlI, xuI: xuI, errorStopPoint: errorStopPoint , iterationLimit: iterations);
+          provider.falsePosition = falsePosition;
+          navigator?.goToHomeScreen();
+        }
+      }
     }
+
   }
 
   void goToMainScreen() {

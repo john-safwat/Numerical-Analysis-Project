@@ -28,6 +28,7 @@ class Bisection {
     return exp.evaluate(EvaluationType.REAL, cm);
   }
 
+
   void calcBisection(){
 
     if (iterationLimit != 0){
@@ -79,5 +80,4 @@ class Bisection {
       }while(error[i] >= errorStopPoint);
     }
   }
-
 }
