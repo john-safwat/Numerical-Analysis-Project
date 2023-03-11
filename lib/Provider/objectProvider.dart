@@ -13,12 +13,16 @@ class ObjectProvider extends ChangeNotifier {
   void setEquation(String equation){
     if(bisection!= null){
       bisection!.equation = equation;
+      bisection!.calcBisection();
     }else if (falsePosition != null){
       falsePosition!.equation = equation;
+      falsePosition!.calcFalsePosition();
     }else if (sampleFixedPoint != null){
       sampleFixedPoint!.equation = equation;
+      sampleFixedPoint!.calcSampleFixedPoint();
     }else if (newton != null){
       newton!.equation = equation;
+      newton!.calcNewton();
     }
   }
 

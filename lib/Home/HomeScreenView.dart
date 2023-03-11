@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeScreenNavigator{
                         type: "math",
                         changeTitleOnScreen: changeTitleOnScreen),
                     MyButton(
-                        title: "√",
+                        title: "log10(",
                         type: "math",
                         changeTitleOnScreen: changeTitleOnScreen),
                     MyButton(
@@ -281,6 +281,6 @@ class _HomeScreenState extends State<HomeScreen> implements HomeScreenNavigator{
   void goToResultScreen() {
     var provider = Provider.of<ObjectProvider>(context , listen: false);
     provider.setEquation(viewModel.titleOnScreen);
-    Navigator.pushNamed(context, ResultScreen.routeName);
+    Navigator.pushReplacementNamed(context, ResultScreen.routeName);
   }
 }

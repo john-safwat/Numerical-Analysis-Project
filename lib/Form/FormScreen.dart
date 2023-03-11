@@ -79,7 +79,7 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () {viewModel.goToMainScreen();},
+                      onPressed: () {viewModel.goToMainScreen(provider);},
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(MyTheme.red),
                       ),

@@ -11,5 +11,10 @@ class MyTheme {
 
   static ThemeData themeData = ThemeData(
     scaffoldBackgroundColor: backGround,
+    appBarTheme:const AppBarTheme(
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    )
   );
 }

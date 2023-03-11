@@ -70,7 +70,11 @@ class FormScreenViewModel extends ChangeNotifier {
     }
   }
 
-  void goToMainScreen() {
+  void goToMainScreen(ObjectProvider provider) {
+    provider.bisection = null ;
+    provider.falsePosition = null ;
+    provider.sampleFixedPoint = null ;
+    provider.newton= null ;
     navigator?.goToMainScreen();
   }
 

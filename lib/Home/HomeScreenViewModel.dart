@@ -18,7 +18,7 @@ class HomeScreenViewModel extends ChangeNotifier{
       onPressE();
       return ;
     }
-    if (title == "sin(" || title == "cos(" || title == "tan("){
+    if (title == "sin(" || title == "cos(" || title == "tan(" || title == "log10(" ){
       onPressEquation(title);
       return;
     }
