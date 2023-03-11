@@ -34,7 +34,7 @@ class FalsePosition {
         fxl.add(calcFunction(xl[i]));
         xu.add(xuI);
         fxu.add(calcFunction(xu[i]));
-        xr.add(xu[i]-(fxu[i]*(xl[i]-xu[i]))/fxl[i]-fxu[i]);
+        xr.add(xu[i]-(fxu[i]*(xl[i]-xu[i]))/(fxl[i]-fxu[i]));
         fxr.add(calcFunction(xr[i]));
 
         if(i == 0 ){
@@ -58,7 +58,7 @@ class FalsePosition {
         fxl.add(calcFunction(xl[i]));
         xu.add(xuI);
         fxu.add(calcFunction(xu[i]));
-        xr.add(xu[i]-(fxu[i]*(xl[i]-xu[i]))/fxl[i]-fxu[i]);
+        xr.add(xu[i]-(fxu[i]*(xl[i]-xu[i]))/(fxl[i]-fxu[i]));
         fxr.add(calcFunction(xr[i]));
 
         if(i == 0 ){
