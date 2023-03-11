@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class Bisection {
 
@@ -17,16 +17,66 @@ class Bisection {
   List<double> error = [] ;
   List<int> iterations = [];
 
-  Bisection({required this.xlI , required this.xuI , required this.errorStopPoint , this.iterationLimit});
+  Bisection({required this.xlI , required this.xuI , required this.errorStopPoint , this.iterationLimit = 0});
 
+  double calcFunction(double xValue){
+    Variable x = Variable('x');
+    Parser p  = Parser();
+    Expression exp = p.parse(equation);
+    ContextModel cm = ContextModel();
+    cm.bindVariable(x, Number(xValue));
+    return exp.evaluate(EvaluationType.REAL, cm);
+  }
 
-  @override
-  void PrintData() {
-    debugPrint(xlI.toString());
-    debugPrint(xuI.toString());
-    debugPrint(errorStopPoint.toString());
-    if(iterationLimit != null){
-      debugPrint(iterationLimit!.toString());
+  void calcBisection(){
+
+    if (iterationLimit != 0){
+      for(int i = 0 ; i< iterationLimit! ; i++ ){
+        xl.add(xlI);
+        fxl.add(calcFunction(xl[i]));
+        xu.add(xuI);
+        fxu.add(calcFunction(xu[i]));
+        xr.add((xl[i] + xu[i])/2);
+        fxr.add(calcFunction(xr[i]));
+
+        if(i == 0 ){
+          error.add(100);
+        }else {
+          error.add(((xr[i] - xr[i-1]) / xr[i]).abs() * 100);
+        }
+
+        iterations.add(i);
+        if (fxl[i]*fxr[i]>0){
+          xlI = xr[i];
+        } else{
+          xuI = xr[i];
+        }
+      }
+    }else {
+      int i = -1;
+      do {
+        i++;
+        xl.add(xlI);
+        fxl.add(calcFunction(xl[i]));
+        xu.add(xuI);
+        fxu.add(calcFunction(xu[i]));
+        xr.add((xl[i] + xu[i])/2);
+        fxr.add(calcFunction(xr[i]));
+
+        if(i == 0 ){
+          error.add(100);
+        }else {
+          error.add(((xr[i] - xr[i-1]) / xr[i]).abs() * 100);
+        }
+
+        iterations.add(i);
+        if (fxl[i]*fxr[i]>0){
+          xlI = xr[i];
+        } else{
+          xuI = xr[i];
+        }
+
+      }while(error[i] >= errorStopPoint);
     }
   }
 
