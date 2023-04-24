@@ -94,8 +94,8 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
                           xl: xlController.text,
                           xu: xuController.text,
                           xOfI: xOfIlController.text,
+                          xOfIMin1: xOfIMin1Controller.text,
                           error: errorController.text,
-                          xOfIMin1: xOfIlController.text,
                           numberOfIterations: iterationController.text,
                         );
                       },

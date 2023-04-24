@@ -3,12 +3,14 @@ import 'package:numericalanalysis/Models/Bisection.dart';
 import 'package:numericalanalysis/Models/FalsePosition.dart';
 import 'package:numericalanalysis/Models/Newton.dart';
 import 'package:numericalanalysis/Models/SampleFixedPoint.dart';
+import 'package:numericalanalysis/Models/Secant.dart';
 
 class ObjectProvider extends ChangeNotifier {
   Bisection? bisection;
   FalsePosition? falsePosition ;
   SampleFixedPoint? sampleFixedPoint;
   Newton? newton ;
+  Secant? secant;
 
   void setEquation(String equation){
     if(bisection!= null){
@@ -23,6 +25,9 @@ class ObjectProvider extends ChangeNotifier {
     }else if (newton != null){
       newton!.equation = equation;
       newton!.calcNewton();
+    }else if (secant != null){
+      secant!.equation = equation;
+      secant!.calcSecant();
     }
   }
 

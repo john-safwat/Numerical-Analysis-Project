@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:numericalanalysis/Provider/objectProvider.dart';
+import 'package:numericalanalysis/Result/ShowRooTWidget.dart';
+import 'package:numericalanalysis/Result/ShowTextWidget.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +25,7 @@ class _ResultScreenState extends State<ResultScreen> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              ShowRootWidget(title: provider.bisection!.xr[provider.bisection!.xr.length-1]),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -65,6 +68,7 @@ class _ResultScreenState extends State<ResultScreen> {
         ),
         body: Column(
           children: [
+            ShowRootWidget(title: provider.falsePosition!.xr[provider.falsePosition!.xr.length-1]),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -106,6 +110,8 @@ class _ResultScreenState extends State<ResultScreen> {
         ),
         body:  Column(
           children: [
+
+            ShowRootWidget(title: provider.sampleFixedPoint!.x[provider.sampleFixedPoint!.x.length-1]),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -137,8 +143,10 @@ class _ResultScreenState extends State<ResultScreen> {
         appBar: AppBar(
           title: const Text("Newton"),
         ),
-        body:  Column(
+        body: Column(
           children: [
+            ShowRootWidget(title: provider.newton!.x[provider.newton!.x.length-1]),
+
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -167,83 +175,45 @@ class _ResultScreenState extends State<ResultScreen> {
           ],
         ),
       );
+    } else {
       return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text("Secant"),
+        ),
         body: Column(
           children: [
+            ShowRootWidget(title: provider.secant!.xI[provider.secant!.xI.length-1]),
             Row(
-              children: const [
-                Text("i"),
-                Text("x"),
-                Text("fx"),
-                Text("fxd"),
-                Text("error"),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                showTextWidget(title:"Iteration" , type: "iter"),
+                showTextWidget(title:"X i-1", type: "op"),
+                showTextWidget(title:"f(X i-1)", type: "op"),
+                showTextWidget(title:"X", type: "op"),
+                showTextWidget(title:"f(X)", type: "op"),
+                showTextWidget(title:"Error", type: "op"),
               ],
             ),
-            Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) => Row(
-                    children: [
-                      Text(provider.newton!.iterations[index].toString()),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(provider.newton!.x[index].toString()),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(provider.newton!.fx[index].toString()),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(provider.newton!.fxd[index].toString()),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(provider.newton!.error[index].toString()),
-                    ],
-                  ),
-                  itemCount: provider.newton!.iterations.length,
-                  separatorBuilder: (context, index) => Container(
-                    height: 2,
-                    width: double.infinity,
-                    color: Colors.red,
-                  ),
-                )),
+            Expanded(child: ListView.builder(
+              itemBuilder: (context, index) => Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  showTextWidget(title:provider.secant!.iterations[index].toString() , type: "iter"),
+                  showTextWidget(title:provider.secant!.xPrev[index].toStringAsFixed(3), type: "-"),
+                  showTextWidget(title:provider.secant!.fXPrev[index].toStringAsFixed(3), type: "-"),
+                  showTextWidget(title:provider.secant!.xI[index].toStringAsFixed(3), type: "-"),
+                  showTextWidget(title:provider.secant!.fxI[index].toStringAsFixed(3), type: "-"),
+                  showTextWidget(title:provider.secant!.error[index].toStringAsFixed(3), type: "-"),
+                ],
+              ),
+              itemCount: provider.secant!.iterations.length,
+            )),
           ],
         ),
       );
-    } else {
-      return Scaffold();
     }
   }
 }
 
-class showTextWidget extends StatelessWidget {
-  String title ;
-  String type ;
-  showTextWidget({required this.title , required this.type});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height:55,
-        margin:const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: type == "iter" ? MyTheme.purple : type == "op"? MyTheme.red :MyTheme.gray,
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

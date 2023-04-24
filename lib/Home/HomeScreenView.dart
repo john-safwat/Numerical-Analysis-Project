@@ -253,7 +253,6 @@ class _HomeScreenState extends State<HomeScreen> implements HomeScreenNavigator{
                                     type: "op",
                                     changeTitleOnScreen: changeTitleOnScreen),
 
-
                               ],
                             ))
                           ],

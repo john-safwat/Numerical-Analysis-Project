@@ -1,11 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:numericalanalysis/Form/FormScreen.dart';
-import 'package:numericalanalysis/Theme/MyTheme.dart';
 
 class MainScreen extends StatelessWidget {
   static const String routeName = 'main Screen';
-  List<String> methods = ['Bisection.png' , 'FalsePosition.png' , 'SampleFixedPoint.png' , 'Newton.png'];
+  List<String> methods = ['Bisection.png' , 'FalsePosition.png' , 'SampleFixedPoint.png' , 'Newton.png' , 'Secant.png'];
   @override
   Widget build(BuildContext context) {
     return Container(

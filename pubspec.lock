@@ -489,5 +489,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: "2.19.4"
+  dart: "2.19.6"
   flutter: ">=1.16.0"
