@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:numericalanalysis/Home/HomeScreenNavigator.dart';
-import 'package:numericalanalysis/Home/HomeScreenViewModel.dart';
-import 'package:numericalanalysis/Home/MyButton.dart';
+import 'package:numericalanalysis/Calculator/HomeScreenNavigator.dart';
+import 'package:numericalanalysis/Calculator/HomeScreenViewModel.dart';
 import 'package:numericalanalysis/Provider/objectProvider.dart';
 import 'package:numericalanalysis/Result/ResultScreen.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
 import 'package:provider/provider.dart';
+
+import 'MyButton.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'homeScreen';

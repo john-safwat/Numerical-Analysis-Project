@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numericalanalysis/Home/HomeScreenNavigator.dart';
+import 'package:numericalanalysis/Calculator/HomeScreenNavigator.dart';
 
 class HomeScreenViewModel extends ChangeNotifier{
   HomeScreenNavigator? navigator;

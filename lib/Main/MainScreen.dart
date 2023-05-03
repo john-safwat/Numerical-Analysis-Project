@@ -25,17 +25,17 @@ class MainScreen extends StatelessWidget {
                   Navigator.pushNamed(context, FormScreen.routeName , arguments: method.substring(0,method.length-4));
                 },
                 child: Center(child: Image.asset('assets/images/$method' , height: double.infinity,),))).toList(),
-              options: CarouselOptions(
-                height: 550,
-                viewportFraction: 0.4,
-                initialPage: 0,
-                enableInfiniteScroll: true,
-                reverse: false,
-                autoPlay: false,
-                enlargeCenterPage: true,
-                enlargeFactor: 0.4,
-                scrollDirection: Axis.horizontal,
-              ),
+                options: CarouselOptions(
+                  height: 550,
+                  viewportFraction: 0.4,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: false,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.4,
+                  scrollDirection: Axis.horizontal,
+                ),
             )
           ],
         ),
