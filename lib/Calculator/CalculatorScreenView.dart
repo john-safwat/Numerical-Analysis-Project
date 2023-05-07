@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:numericalanalysis/Calculator/HomeScreenNavigator.dart';
-import 'package:numericalanalysis/Calculator/HomeScreenViewModel.dart';
+import 'package:numericalanalysis/Calculator/CalculatorScreenNavigator.dart';
+import 'package:numericalanalysis/Calculator/CalculatorScreenViewModel.dart';
 import 'package:numericalanalysis/Provider/objectProvider.dart';
 import 'package:numericalanalysis/Result/ResultScreen.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
@@ -8,14 +8,14 @@ import 'package:provider/provider.dart';
 
 import 'MyButton.dart';
 
-class HomeScreen extends StatefulWidget {
+class CalculatorScreen extends StatefulWidget {
   static const String routeName = 'homeScreen';
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CalculatorScreen> createState() => _CalculatorScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> implements HomeScreenNavigator{
-  HomeScreenViewModel viewModel = HomeScreenViewModel();
+class _CalculatorScreenState extends State<CalculatorScreen> implements CalculatorScreenNavigator{
+  CalculatorScreenViewModel viewModel = CalculatorScreenViewModel();
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeScreenNavigator{
           child: Column(
             children: [
               // top Screen
-              Consumer<HomeScreenViewModel>(
+              Consumer<CalculatorScreenViewModel>(
                 builder: (context, value, child) => Expanded(
                   flex: 3,
                   child: Container(

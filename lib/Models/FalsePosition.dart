@@ -6,6 +6,7 @@ class FalsePosition {
   double errorStopPoint ;
   String equation = '';
   int? iterationLimit ;
+  String?errorMessage ;
 
   List<double> xl = [];
   List<double> fxl = [];
@@ -28,53 +29,61 @@ class FalsePosition {
   }
 
   void calcFalsePosition(){
-    if (iterationLimit != 0){
-      for(int i = 0 ; i< iterationLimit! ; i++ ){
-        xl.add(xlI);
-        fxl.add(calcFunction(xl[i]));
-        xu.add(xuI);
-        fxu.add(calcFunction(xu[i]));
-        xr.add(xu[i]-(fxu[i]*(xl[i]-xu[i]))/(fxl[i]-fxu[i]));
-        fxr.add(calcFunction(xr[i]));
+    if(calcFunction(xuI) * calcFunction(xlI) < 0){
+      if (iterationLimit != 0){
+        for(int i = 0 ; i< iterationLimit! ; i++ ){
+          xl.add(xlI);
+          fxl.add(calcFunction(xl[i]));
+          xu.add(xuI);
+          fxu.add(calcFunction(xu[i]));
+          xr.add(xu[i]-(fxu[i]*(xl[i]-xu[i]))/(fxl[i]-fxu[i]));
+          fxr.add(calcFunction(xr[i]));
 
-        if(i == 0 ){
-          error.add(100);
-        }else {
-          error.add(((xr[i] - xr[i-1]) / xr[i]).abs() * 100);
-        }
+          if(i == 0 ){
+            error.add(100);
+          }else {
+            error.add(((xr[i] - xr[i-1]) / xr[i]).abs() * 100);
+          }
 
-        iterations.add(i);
-        if (fxl[i]*fxr[i]>0){
-          xlI = xr[i];
-        } else{
-          xuI = xr[i];
+          iterations.add(i);
+          if (fxl[i]*fxr[i]>0){
+            xlI = xr[i];
+          } else if (fxl[i]*fxr[i]<0){
+            xuI = xr[i];
+          }else {
+            return;
+          }
         }
+      }else {
+        int i = -1;
+        do {
+          i++;
+          xl.add(xlI);
+          fxl.add(calcFunction(xl[i]));
+          xu.add(xuI);
+          fxu.add(calcFunction(xu[i]));
+          xr.add(xu[i]-(fxu[i]*(xl[i]-xu[i]))/(fxl[i]-fxu[i]));
+          fxr.add(calcFunction(xr[i]));
+
+          if(i == 0 ){
+            error.add(100);
+          }else {
+            error.add(((xr[i] - xr[i-1]) / xr[i]).abs() * 100);
+          }
+
+          iterations.add(i);
+          if (fxl[i]*fxr[i]>0){
+            xlI = xr[i];
+          } else if (fxl[i]*fxr[i]<0){
+            xuI = xr[i];
+          }else {
+            return;
+          }
+
+        }while(error[i] >= errorStopPoint);
       }
     }else {
-      int i = -1;
-      do {
-        i++;
-        xl.add(xlI);
-        fxl.add(calcFunction(xl[i]));
-        xu.add(xuI);
-        fxu.add(calcFunction(xu[i]));
-        xr.add(xu[i]-(fxu[i]*(xl[i]-xu[i]))/(fxl[i]-fxu[i]));
-        fxr.add(calcFunction(xr[i]));
-
-        if(i == 0 ){
-          error.add(100);
-        }else {
-          error.add(((xr[i] - xr[i-1]) / xr[i]).abs() * 100);
-        }
-
-        iterations.add(i);
-        if (fxl[i]*fxr[i]>0){
-          xlI = xr[i];
-        } else{
-          xuI = xr[i];
-        }
-
-      }while(error[i] >= errorStopPoint);
+      errorMessage = "invalid data";
     }
   }
 }

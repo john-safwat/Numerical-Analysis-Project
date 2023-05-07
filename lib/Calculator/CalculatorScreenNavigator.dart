@@ -1,4 +1,4 @@
-abstract class HomeScreenNavigator {
+abstract class CalculatorScreenNavigator {
   void goToFormScreen();
   void goToResultScreen();
 }

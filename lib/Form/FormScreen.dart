@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:numericalanalysis/Calculator/HomeScreenView.dart';
+import 'package:numericalanalysis/Calculator/CalculatorScreenView.dart';
 import 'package:numericalanalysis/Form/FormNavigator.dart';
 import 'package:numericalanalysis/Form/FormScreenViewModel.dart';
 import 'package:numericalanalysis/Provider/objectProvider.dart';
@@ -146,7 +146,7 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
 
   @override
   void goToHomeScreen() {
-    Navigator.pushNamed(context, HomeScreen.routeName);
+    Navigator.pushNamed(context, CalculatorScreen.routeName);
   }
 
   @override

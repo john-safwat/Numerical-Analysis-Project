@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:numericalanalysis/Calculator/HomeScreenNavigator.dart';
+import 'package:numericalanalysis/Calculator/CalculatorScreenNavigator.dart';
 
-class HomeScreenViewModel extends ChangeNotifier{
-  HomeScreenNavigator? navigator;
+class CalculatorScreenViewModel extends ChangeNotifier{
+  CalculatorScreenNavigator? navigator;
   String titleOnScreen = 'Enter Equation';
   String validationMessage = "Valid Equation";
   int openingBracketCount = 0 ;

@@ -21,7 +21,18 @@ class _ResultScreenState extends State<ResultScreen> {
         appBar: AppBar(
           title: const Text("Bisection"),
         ),
-        body: Padding(
+        body:provider.bisection!.errorMessage != null?Column(
+          children: [
+            Text(
+              provider.bisection!.errorMessage!,
+              style:const TextStyle(
+                color: MyTheme.white,
+                fontSize: 30,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          ],
+        ) : Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
@@ -66,7 +77,18 @@ class _ResultScreenState extends State<ResultScreen> {
         appBar: AppBar(
           title: const Text("False Position"),
         ),
-        body: Column(
+        body:provider.falsePosition!.errorMessage != null?Column(
+          children: [
+            Text(
+              provider.falsePosition!.errorMessage!,
+              style:const TextStyle(
+                  color: MyTheme.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+          ],
+        ) : Column(
           children: [
             ShowRootWidget(title: provider.falsePosition!.xr[provider.falsePosition!.xr.length-1]),
             Row(

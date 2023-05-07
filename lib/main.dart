@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numericalanalysis/Calculator/HomeScreenView.dart';
+import 'package:numericalanalysis/Calculator/CalculatorScreenView.dart';
 import 'package:numericalanalysis/Form/FormScreen.dart';
 import 'package:numericalanalysis/Main/MainScreen.dart';
 import 'package:numericalanalysis/Matrix/MatrixView.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         routes: {
           MainScreen.routeName :(_) => MainScreen(),
           FormScreen.routeName :(_) => FormScreen(),
-          HomeScreen.routeName :(_) => HomeScreen(),
+          CalculatorScreen.routeName :(_) => CalculatorScreen(),
           ResultScreen.routeName : (_) => ResultScreen(),
           MatrixScreen.routeName :(_) => MatrixScreen()
         },
