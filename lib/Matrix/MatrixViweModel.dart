@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
 import 'package:numericalanalysis/Models/Matrix.dart';
 
 class MatriXViewModel extends ChangeNotifier {
@@ -88,9 +87,9 @@ class MatriXViewModel extends ChangeNotifier {
 
     List<Matrix> matrices = [];
 
-    matrices.add(matrix);
+    matrices.add(matrix.copyMatrix());
     matrix.sortMatrixFirstTime();
-    matrices.add(matrix);
+    matrices.add(matrix.copyMatrix());
     m21 = matrix.rowTwo[0] / matrix.rowOne[0];
     m31 = matrix.rowThree[0] / matrix.rowOne[0];
     m21.floorToDouble();
@@ -102,10 +101,10 @@ class MatriXViewModel extends ChangeNotifier {
       matrix.rowThree[i] = matrix.rowThree[i] - (m31 * matrix.rowOne[i]);
       matrix.rowThree[i].floorToDouble();
     }
-    matrices.add(matrix);
+    matrices.add(matrix.copyMatrix());
 
     matrix.sortMatrixSecondTime();
-    matrices.add(matrix);
+    matrices.add(matrix.copyMatrix());
 
     m32 = matrix.rowThree[1] / matrix.rowTwo[1];
     m32.floorToDouble();
@@ -115,7 +114,7 @@ class MatriXViewModel extends ChangeNotifier {
       matrix.rowThree[i].floorToDouble();
     }
 
-    matrices.add(matrix);
+    matrices.add(matrix.copyMatrix());
 
     x3 = matrix.rowThree[3] / matrix.rowThree[2];
     print("x3 : ${x3.toStringAsFixed(3)}");
@@ -125,7 +124,7 @@ class MatriXViewModel extends ChangeNotifier {
     print('x1 : ${x1.toStringAsFixed(3)}');
     for(int i = 0; i<matrices.length ;i++){
       printMatrices(matrices[i]);
-      print('');
+
     }
   }
 

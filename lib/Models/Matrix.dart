@@ -46,4 +46,15 @@ class Matrix {
       }
     }
   }
+
+  Matrix copyMatrix(){
+    Matrix copy = Matrix();
+    for(int i = 0 ; i<rowOne.length ; i++){
+      copy.rowOne.add(rowOne[i]);
+      copy.rowTwo.add(rowTwo[i]);
+      copy.rowThree.add(rowThree[i]);
+    }
+
+    return copy;
+  }
 }

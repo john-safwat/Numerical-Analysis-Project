@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           MatrixScreen.routeName :(_) => MatrixScreen()
         },
         theme: MyTheme.themeData,
-        initialRoute: MatrixScreen.routeName,
+        initialRoute: MainScreen.routeName,
       ),
     );
 
