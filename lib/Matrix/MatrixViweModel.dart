@@ -86,8 +86,11 @@ class MatriXViewModel extends ChangeNotifier {
 
   void gaussEliminationWithPartialPivoting() {
 
-    matrix.sortMatrixFirstTime();
+    List<Matrix> matrices = [];
 
+    matrices.add(matrix);
+    matrix.sortMatrixFirstTime();
+    matrices.add(matrix);
     m21 = matrix.rowTwo[0] / matrix.rowOne[0];
     m31 = matrix.rowThree[0] / matrix.rowOne[0];
     m21.floorToDouble();
@@ -99,8 +102,10 @@ class MatriXViewModel extends ChangeNotifier {
       matrix.rowThree[i] = matrix.rowThree[i] - (m31 * matrix.rowOne[i]);
       matrix.rowThree[i].floorToDouble();
     }
+    matrices.add(matrix);
 
     matrix.sortMatrixSecondTime();
+    matrices.add(matrix);
 
     m32 = matrix.rowThree[1] / matrix.rowTwo[1];
     m32.floorToDouble();
@@ -110,17 +115,22 @@ class MatriXViewModel extends ChangeNotifier {
       matrix.rowThree[i].floorToDouble();
     }
 
+    matrices.add(matrix);
+
     x3 = matrix.rowThree[3] / matrix.rowThree[2];
     print("x3 : ${x3.toStringAsFixed(3)}");
     x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
     print("x2 : ${x2.toStringAsFixed(3)}");
     x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
     print('x1 : ${x1.toStringAsFixed(3)}');
-    printMatrices();
+    for(int i = 0; i<matrices.length ;i++){
+      printMatrices(matrices[i]);
+      print('');
+    }
   }
 
 
-  void printMatrices(){
+  void printMatrices(Matrix matrix){
       print("${matrix.rowOne[0]} ${matrix.rowOne[1]} ${matrix.rowOne[2]} ${matrix.rowOne[3]}");
       print("${matrix.rowTwo[0]} ${matrix.rowTwo[1]} ${matrix.rowTwo[2]} ${matrix.rowTwo[3]}");
       print("${matrix.rowThree[0]} ${matrix.rowThree[1]} ${matrix.rowThree[2]} ${matrix.rowThree[3]}");
