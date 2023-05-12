@@ -5,13 +5,13 @@ import 'package:numericalanalysis/Models/FalsePosition.dart';
 import 'package:numericalanalysis/Models/Newton.dart';
 import 'package:numericalanalysis/Models/SampleFixedPoint.dart';
 import 'package:numericalanalysis/Models/Secant.dart';
-import 'package:numericalanalysis/Provider/objectProvider.dart';
+import 'package:numericalanalysis/Provider/NonlinearEquationsProvider.dart';
 
 class FormScreenViewModel extends ChangeNotifier {
   FormNavigator? navigator;
 
   // function to validate the data and then sent it to home screen this function request the data from the form controllers
-  void goToHomeScreen(bool formValidation,ObjectProvider provider,
+  void goToHomeScreen(bool formValidation,NonlinearEquationsProvider provider,
       {required String type,
       required String xl,
       required String xu,
@@ -86,7 +86,7 @@ class FormScreenViewModel extends ChangeNotifier {
   // function to pop the currant screen from the widget tree
   // this function is making every object in the provider null to avoid the conflict if the user use the same method again
   // it will delete all the previous problem calculations to make it clear for the next use of the program
-  void goToMainScreen(ObjectProvider provider) {
+  void goToMainScreen(NonlinearEquationsProvider provider) {
     provider.bisection = null ;
     provider.falsePosition = null ;
     provider.sampleFixedPoint = null ;

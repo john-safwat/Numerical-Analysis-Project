@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:numericalanalysis/Calculator/CalculatorScreenView.dart';
 import 'package:numericalanalysis/Form/FormNavigator.dart';
 import 'package:numericalanalysis/Form/FormScreenViewModel.dart';
-import 'package:numericalanalysis/Provider/objectProvider.dart';
+import 'package:numericalanalysis/Provider/NonlinearEquationsProvider.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +39,7 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
   @override
   Widget build(BuildContext context) {
     var title = ModalRoute.of(context)?.settings.arguments as String;
-    var provider = Provider.of<ObjectProvider>(context);
+    var provider = Provider.of<NonlinearEquationsProvider>(context);
     return ChangeNotifierProvider(
       create: (context) => viewModel,
       child: Scaffold(

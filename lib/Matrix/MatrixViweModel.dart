@@ -34,6 +34,7 @@ class MatriXViewModel extends ChangeNotifier {
   ];
 
   void readInputs() {
+    matrix = Matrix();
     for (int i = 0; i < rowOneControllers.length; i++) {
       matrix.rowOne.add(double.parse(rowOneControllers[i].text));
       matrix.rowTwo.add(double.parse(rowTwoControllers[i].text));
@@ -43,8 +44,8 @@ class MatriXViewModel extends ChangeNotifier {
 
   void valid() {
     if (formKey.currentState!.validate()) {
-      // readInputs();
-      // gaussEliminationWithoutPartialPivot();
+      readInputs();
+      gaussEliminationWithoutPartialPivot();
       readInputs();
       gaussEliminationWithPartialPivoting();
     }
@@ -57,8 +58,14 @@ class MatriXViewModel extends ChangeNotifier {
     return null;
   }
 
+  // function to calculate the matrix using gauss elimination with out partial pivoting
   void gaussEliminationWithoutPartialPivot() {
+    List<Matrix> matrices = [];
 
+    // add the matrix to matrices list
+    matrices.add(matrix.copyMatrix());
+
+    // then calc the m21 and m31 to make the the lower triangle is zero
     m21 = matrix.rowTwo[0] / matrix.rowOne[0];
     m31 = matrix.rowThree[0] / matrix.rowOne[0];
 
@@ -67,6 +74,8 @@ class MatriXViewModel extends ChangeNotifier {
       matrix.rowThree[i] = matrix.rowThree[i] - (m31 * matrix.rowOne[i]);
     }
 
+    // add the matrix to matrices list
+    matrices.add(matrix.copyMatrix());
 
     m32 = matrix.rowThree[1] / matrix.rowTwo[1];
 
@@ -74,15 +83,15 @@ class MatriXViewModel extends ChangeNotifier {
       matrix.rowThree[i] = matrix.rowThree[i] - (m32 * matrix.rowTwo[i]);
     }
 
+    matrices.add(matrix.copyMatrix());
 
     x3 = matrix.rowThree[3] / matrix.rowThree[2];
-    print("x3 : $x3");
     x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
-    print("x2 : $x2");
     x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
-    print('x1 : $x1');
+
   }
 
+  // function to calculate the matrix using gauss elimination with partial pivoting
   void gaussEliminationWithPartialPivoting() {
 
     List<Matrix> matrices = [];
@@ -104,6 +113,7 @@ class MatriXViewModel extends ChangeNotifier {
     matrices.add(matrix.copyMatrix());
 
     matrix.sortMatrixSecondTime();
+
     matrices.add(matrix.copyMatrix());
 
     m32 = matrix.rowThree[1] / matrix.rowTwo[1];
@@ -117,17 +127,9 @@ class MatriXViewModel extends ChangeNotifier {
     matrices.add(matrix.copyMatrix());
 
     x3 = matrix.rowThree[3] / matrix.rowThree[2];
-    print("x3 : ${x3.toStringAsFixed(3)}");
     x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
-    print("x2 : ${x2.toStringAsFixed(3)}");
     x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
-    print('x1 : ${x1.toStringAsFixed(3)}');
-    for(int i = 0; i<matrices.length ;i++){
-      printMatrices(matrices[i]);
-
-    }
   }
-
 
   void printMatrices(Matrix matrix){
       print("${matrix.rowOne[0]} ${matrix.rowOne[1]} ${matrix.rowOne[2]} ${matrix.rowOne[3]}");
@@ -138,4 +140,5 @@ class MatriXViewModel extends ChangeNotifier {
   void calcMatrixWithLU(){
 
   }
+
 }

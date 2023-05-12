@@ -7,7 +7,7 @@ import 'package:numericalanalysis/Result/ResultScreen.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
 import 'package:provider/provider.dart';
 
-import 'Provider/objectProvider.dart';
+import 'Provider/NonlinearEquationsProvider.dart';
 
 void main (){
   runApp(MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ObjectProvider(),
+      create: (context) => NonlinearEquationsProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           MatrixScreen.routeName :(_) => MatrixScreen()
         },
         theme: MyTheme.themeData,
-        initialRoute: MainScreen.routeName,
+        initialRoute: MatrixScreen.routeName,
       ),
     );
 

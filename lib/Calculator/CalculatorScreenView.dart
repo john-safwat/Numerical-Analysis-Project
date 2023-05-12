@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:numericalanalysis/Calculator/CalculatorScreenNavigator.dart';
 import 'package:numericalanalysis/Calculator/CalculatorScreenViewModel.dart';
-import 'package:numericalanalysis/Provider/objectProvider.dart';
+import 'package:numericalanalysis/Provider/NonlinearEquationsProvider.dart';
 import 'package:numericalanalysis/Result/ResultScreen.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
 import 'package:provider/provider.dart';
@@ -279,7 +279,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> implements Calculat
 
   @override
   void goToResultScreen() {
-    var provider = Provider.of<ObjectProvider>(context , listen: false);
+    var provider = Provider.of<NonlinearEquationsProvider>(context , listen: false);
     provider.setEquation(viewModel.titleOnScreen);
     Navigator.pushReplacementNamed(context, ResultScreen.routeName);
   }

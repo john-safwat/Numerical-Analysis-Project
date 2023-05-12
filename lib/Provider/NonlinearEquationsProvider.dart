@@ -5,7 +5,7 @@ import 'package:numericalanalysis/Models/Newton.dart';
 import 'package:numericalanalysis/Models/SampleFixedPoint.dart';
 import 'package:numericalanalysis/Models/Secant.dart';
 
-class ObjectProvider extends ChangeNotifier {
+class NonlinearEquationsProvider extends ChangeNotifier {
   Bisection? bisection;
   FalsePosition? falsePosition ;
   SampleFixedPoint? sampleFixedPoint;

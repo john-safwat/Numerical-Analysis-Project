@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numericalanalysis/Provider/objectProvider.dart';
+import 'package:numericalanalysis/Provider/NonlinearEquationsProvider.dart';
 import 'package:numericalanalysis/Result/ShowRooTWidget.dart';
 import 'package:numericalanalysis/Result/ShowTextWidget.dart';
 import 'package:numericalanalysis/Theme/MyTheme.dart';
@@ -15,7 +15,7 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ObjectProvider>(context, listen: false);
+    var provider = Provider.of<NonlinearEquationsProvider>(context, listen: false);
     if (provider.bisection != null) {
       return Scaffold(
         appBar: AppBar(
