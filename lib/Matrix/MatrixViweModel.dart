@@ -59,7 +59,7 @@ class MatriXViewModel extends ChangeNotifier {
   }
 
   // function to calculate the matrix using gauss elimination with out partial pivoting
-  void gaussEliminationWithoutPartialPivot() {
+  List<Matrix> gaussEliminationWithoutPartialPivot() {
     List<Matrix> matrices = [];
 
     // add the matrix to matrices list
@@ -89,10 +89,11 @@ class MatriXViewModel extends ChangeNotifier {
     x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
     x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
 
+    return matrices;
   }
 
   // function to calculate the matrix using gauss elimination with partial pivoting
-  void gaussEliminationWithPartialPivoting() {
+  List<Matrix> gaussEliminationWithPartialPivoting() {
 
     List<Matrix> matrices = [];
 
@@ -129,15 +130,19 @@ class MatriXViewModel extends ChangeNotifier {
     x3 = matrix.rowThree[3] / matrix.rowThree[2];
     x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
     x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
+
+    return matrices;
   }
 
   void printMatrices(Matrix matrix){
-      print("${matrix.rowOne[0]} ${matrix.rowOne[1]} ${matrix.rowOne[2]} ${matrix.rowOne[3]}");
-      print("${matrix.rowTwo[0]} ${matrix.rowTwo[1]} ${matrix.rowTwo[2]} ${matrix.rowTwo[3]}");
-      print("${matrix.rowThree[0]} ${matrix.rowThree[1]} ${matrix.rowThree[2]} ${matrix.rowThree[3]}");
+    print("${matrix.rowOne[0]} ${matrix.rowOne[1]} ${matrix.rowOne[2]} ${matrix.rowOne[3]}");
+    print("${matrix.rowTwo[0]} ${matrix.rowTwo[1]} ${matrix.rowTwo[2]} ${matrix.rowTwo[3]}");
+    print("${matrix.rowThree[0]} ${matrix.rowThree[1]} ${matrix.rowThree[2]} ${matrix.rowThree[3]}");
   }
 
   void calcMatrixWithLU(){
+    List<Matrix> matrices = gaussEliminationWithoutPartialPivot();
+
 
   }
 
