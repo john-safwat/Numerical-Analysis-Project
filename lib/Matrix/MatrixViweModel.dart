@@ -44,10 +44,11 @@ class MatriXViewModel extends ChangeNotifier {
 
   void valid() {
     if (formKey.currentState!.validate()) {
+      // readInputs();
+      // gaussEliminationWithoutPartialPivot();
       readInputs();
-      gaussEliminationWithoutPartialPivot();
-      readInputs();
-      gaussEliminationWithPartialPivoting();
+      // gaussEliminationWithPartialPivoting();
+      calcMatrixWithLU();
     }
   }
 
@@ -89,48 +90,9 @@ class MatriXViewModel extends ChangeNotifier {
     x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
     x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
 
-    return matrices;
-  }
-
-  // function to calculate the matrix using gauss elimination with partial pivoting
-  List<Matrix> gaussEliminationWithPartialPivoting() {
-
-    List<Matrix> matrices = [];
-
-    matrices.add(matrix.copyMatrix());
-    matrix.sortMatrixFirstTime();
-    matrices.add(matrix.copyMatrix());
-    m21 = matrix.rowTwo[0] / matrix.rowOne[0];
-    m31 = matrix.rowThree[0] / matrix.rowOne[0];
-    m21.floorToDouble();
-    m31.floorToDouble();
-
-    for (int i = 0; i < matrix.rowOne.length; i++) {
-      matrix.rowTwo[i] = matrix.rowTwo[i] - (m21 * matrix.rowOne[i]);
-      matrix.rowTwo[i].floorToDouble();
-      matrix.rowThree[i] = matrix.rowThree[i] - (m31 * matrix.rowOne[i]);
-      matrix.rowThree[i].floorToDouble();
-    }
-    matrices.add(matrix.copyMatrix());
-
-    matrix.sortMatrixSecondTime();
-
-    matrices.add(matrix.copyMatrix());
-
-    m32 = matrix.rowThree[1] / matrix.rowTwo[1];
-    m32.floorToDouble();
-
-    for (int i = 0; i < matrix.rowThree.length; i++) {
-      matrix.rowThree[i] = (matrix.rowThree[i] - (m32 * matrix.rowTwo[i]));
-      matrix.rowThree[i].floorToDouble();
-    }
-
-    matrices.add(matrix.copyMatrix());
-
-    x3 = matrix.rowThree[3] / matrix.rowThree[2];
-    x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
-    x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
-
+    // for(int i = 0; i<matrices.length ; i++){
+    //   printMatrices(matrices[i]);
+    // }
     return matrices;
   }
 
@@ -143,7 +105,79 @@ class MatriXViewModel extends ChangeNotifier {
   void calcMatrixWithLU(){
     List<Matrix> matrices = gaussEliminationWithoutPartialPivot();
 
+    // impl the L matrix
+    Matrix L = Matrix();
+    L.rowOne = [1 ,0 , 0];
+    L.rowTwo = [m21 ,1, 0];
+    L.rowThree = [m31 ,m32, 1];
+
+    // impl the B matrix
+    Matrix B = Matrix();
+    B.rowOne.add(matrices[0].rowOne[3]);
+    B.rowTwo.add(matrices[0].rowTwo[3]);
+    B.rowThree.add(matrices[0].rowThree[3]);
+
+    // print("${L.rowOne[0]} ${L.rowOne[1]} ${L.rowOne[2]}");
+    // print("${L.rowTwo[0]} ${L.rowTwo[1]} ${L.rowTwo[2]}");
+    // print("${L.rowThree[0]} ${L.rowThree[1]} ${L.rowThree[2]}");
+    //
+    // print("${B.rowOne[0]}");
+    // print("${B.rowTwo[0]}");
+    // print("${B.rowThree[0]}");
+
+    // calc the value of the matrix c
+    double c1 = B.rowOne[0] / L.rowOne[0];
+    double c2 = B.rowTwo[0] / c1 * m21;
+    double c3 = B.rowThree[0] / c1 * m31 + m32 * c2;
+
+    Matrix U = Matrix();
+    U.rowOne = [matrices[matrices.length-1].rowOne[0] , matrices[matrices.length-1].rowOne[1] , matrices[matrices.length-1].rowOne[2]];
+    U.rowTwo = [matrices[matrices.length-1].rowTwo[0] , matrices[matrices.length-1].rowTwo[1] , matrices[matrices.length-1].rowTwo[2]];
+    U.rowThree = [matrices[matrices.length-1].rowThree[0] , matrices[matrices.length-1].rowThree[1] , matrices[matrices.length-1].rowThree[2]];
+
 
   }
+
+  // // function to calculate the matrix using gauss elimination with partial pivoting
+  // List<Matrix> gaussEliminationWithPartialPivoting() {
+  //
+  //   List<Matrix> matrices = [];
+  //
+  //   matrices.add(matrix.copyMatrix());
+  //   matrix.sortMatrixFirstTime();
+  //   matrices.add(matrix.copyMatrix());
+  //   m21 = matrix.rowTwo[0] / matrix.rowOne[0];
+  //   m31 = matrix.rowThree[0] / matrix.rowOne[0];
+  //   m21.floorToDouble();
+  //   m31.floorToDouble();
+  //
+  //   for (int i = 0; i < matrix.rowOne.length; i++) {
+  //     matrix.rowTwo[i] = matrix.rowTwo[i] - (m21 * matrix.rowOne[i]);
+  //     matrix.rowTwo[i].floorToDouble();
+  //     matrix.rowThree[i] = matrix.rowThree[i] - (m31 * matrix.rowOne[i]);
+  //     matrix.rowThree[i].floorToDouble();
+  //   }
+  //   matrices.add(matrix.copyMatrix());
+  //
+  //   matrix.sortMatrixSecondTime();
+  //
+  //   matrices.add(matrix.copyMatrix());
+  //
+  //   m32 = matrix.rowThree[1] / matrix.rowTwo[1];
+  //   m32.floorToDouble();
+  //
+  //   for (int i = 0; i < matrix.rowThree.length; i++) {
+  //     matrix.rowThree[i] = (matrix.rowThree[i] - (m32 * matrix.rowTwo[i]));
+  //     matrix.rowThree[i].floorToDouble();
+  //   }
+  //
+  //   matrices.add(matrix.copyMatrix());
+  //
+  //   x3 = matrix.rowThree[3] / matrix.rowThree[2];
+  //   x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
+  //   x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
+  //
+  //   return matrices;
+  // }
 
 }
