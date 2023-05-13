@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:numericalanalysis/Models/Matrix.dart';
 
 class MatriXViewModel extends ChangeNotifier {
-  Matrix matrix  = Matrix();
+  Matrix matrix = Matrix();
 
   double x1 = 0;
   double x2 = 0;
   double x3 = 0;
+
   double m21 = 0;
   double m31 = 0;
   double m32 = 0;
@@ -36,19 +37,21 @@ class MatriXViewModel extends ChangeNotifier {
   void readInputs() {
     matrix = Matrix();
     for (int i = 0; i < rowOneControllers.length; i++) {
-      matrix.rowOne.add(double.parse(rowOneControllers[i].text));
-      matrix.rowTwo.add(double.parse(rowTwoControllers[i].text));
-      matrix.rowThree.add(double.parse(rowThreeControllers[i].text));
+      matrix.rowOne.add(double.parse(rowOneControllers[i].text.isEmpty ? "0" :rowOneControllers[i].text));
+      matrix.rowTwo.add(double.parse(rowTwoControllers[i].text.isEmpty ? "0" :rowTwoControllers[i].text));
+      matrix.rowThree.add(double.parse(rowThreeControllers[i].text.isEmpty ? "0" :rowThreeControllers[i].text));
     }
   }
 
   void valid() {
-    if (formKey.currentState!.validate()) {
-      // readInputs();
-      // gaussEliminationWithoutPartialPivot();
+    if(formKey.currentState != null){
+      if (formKey.currentState!.validate()) {
+        readInputs();
+        calcCramer();
+      }
+    }else{
       readInputs();
-      // gaussEliminationWithPartialPivoting();
-      calcMatrixWithLU();
+      calcCramer();
     }
   }
 
@@ -60,7 +63,7 @@ class MatriXViewModel extends ChangeNotifier {
   }
 
   // function to calculate the matrix using gauss elimination with out partial pivoting
-  List<Matrix> gaussEliminationWithoutPartialPivot() {
+  List<Matrix> calcGaussElimination() {
     List<Matrix> matrices = [];
 
     // add the matrix to matrices list
@@ -88,28 +91,27 @@ class MatriXViewModel extends ChangeNotifier {
 
     x3 = matrix.rowThree[3] / matrix.rowThree[2];
     x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
-    x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
+    x1 = (matrix.rowOne[3] -
+            ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) /
+        (matrix.rowOne[0]);
 
-    // for(int i = 0; i<matrices.length ; i++){
-    //   printMatrices(matrices[i]);
-    // }
     return matrices;
   }
 
-  void printMatrices(Matrix matrix){
-    print("${matrix.rowOne[0]} ${matrix.rowOne[1]} ${matrix.rowOne[2]} ${matrix.rowOne[3]}");
-    print("${matrix.rowTwo[0]} ${matrix.rowTwo[1]} ${matrix.rowTwo[2]} ${matrix.rowTwo[3]}");
-    print("${matrix.rowThree[0]} ${matrix.rowThree[1]} ${matrix.rowThree[2]} ${matrix.rowThree[3]}");
+  void printMatrices(Matrix matrix) {
+    print("${matrix.rowOne[0]} ${matrix.rowOne[1]} ${matrix.rowOne[2]}");
+    print("${matrix.rowTwo[0]} ${matrix.rowTwo[1]} ${matrix.rowTwo[2]}");
+    print("${matrix.rowThree[0]} ${matrix.rowThree[1]} ${matrix.rowThree[2]}");
   }
 
-  void calcMatrixWithLU(){
-    List<Matrix> matrices = gaussEliminationWithoutPartialPivot();
+  void calcMatrixWithLU() {
+    List<Matrix> matrices = calcGaussElimination();
 
     // impl the L matrix
     Matrix L = Matrix();
-    L.rowOne = [1 ,0 , 0];
-    L.rowTwo = [m21 ,1, 0];
-    L.rowThree = [m31 ,m32, 1];
+    L.rowOne = [1, 0, 0];
+    L.rowTwo = [m21, 1, 0];
+    L.rowThree = [m31, m32, 1];
 
     // impl the B matrix
     Matrix B = Matrix();
@@ -117,67 +119,154 @@ class MatriXViewModel extends ChangeNotifier {
     B.rowTwo.add(matrices[0].rowTwo[3]);
     B.rowThree.add(matrices[0].rowThree[3]);
 
-    // print("${L.rowOne[0]} ${L.rowOne[1]} ${L.rowOne[2]}");
-    // print("${L.rowTwo[0]} ${L.rowTwo[1]} ${L.rowTwo[2]}");
-    // print("${L.rowThree[0]} ${L.rowThree[1]} ${L.rowThree[2]}");
-    //
-    // print("${B.rowOne[0]}");
-    // print("${B.rowTwo[0]}");
-    // print("${B.rowThree[0]}");
-
     // calc the value of the matrix c
-    double c1 = B.rowOne[0] / L.rowOne[0];
-    double c2 = B.rowTwo[0] / c1 * m21;
-    double c3 = B.rowThree[0] / c1 * m31 + m32 * c2;
+    double c1 = B.rowOne[0];
+    double c2 = B.rowTwo[0] - (c1 * m21);
+    double c3 = B.rowThree[0] - ((c1 * m31) + (m32 * c2));
 
+    // imp the U matrix
     Matrix U = Matrix();
-    U.rowOne = [matrices[matrices.length-1].rowOne[0] , matrices[matrices.length-1].rowOne[1] , matrices[matrices.length-1].rowOne[2]];
-    U.rowTwo = [matrices[matrices.length-1].rowTwo[0] , matrices[matrices.length-1].rowTwo[1] , matrices[matrices.length-1].rowTwo[2]];
-    U.rowThree = [matrices[matrices.length-1].rowThree[0] , matrices[matrices.length-1].rowThree[1] , matrices[matrices.length-1].rowThree[2]];
+    U.rowOne = [
+      matrices[matrices.length - 1].rowOne[0],
+      matrices[matrices.length - 1].rowOne[1],
+      matrices[matrices.length - 1].rowOne[2]
+    ];
+    U.rowTwo = [
+      matrices[matrices.length - 1].rowTwo[0],
+      matrices[matrices.length - 1].rowTwo[1],
+      matrices[matrices.length - 1].rowTwo[2]
+    ];
+    U.rowThree = [
+      matrices[matrices.length - 1].rowThree[0],
+      matrices[matrices.length - 1].rowThree[1],
+      matrices[matrices.length - 1].rowThree[2]
+    ];
 
+    x3 = c3 / U.rowThree[2];
+    x2 = (c2 - (U.rowTwo[2] * x3)) / U.rowTwo[1];
+    x1 = (c1 - ((U.rowOne[1] * x2) + (U.rowOne[2] * x3))) / U.rowOne[0];
+  }
+
+  List<Matrix> calcGaussJordan() {
+    List<Matrix> matrices = [];
+    matrices.add(matrix.copyMatrix());
+
+    double temp = matrix.rowOne[0];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowOne[i] /= temp;
+    }
+    matrices.add(matrix.copyMatrix());
+
+    temp = matrix.rowTwo[0];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowTwo[i] = temp * matrix.rowOne[i] - matrix.rowTwo[i];
+    }
+    matrices.add(matrix.copyMatrix());
+
+    temp = matrix.rowThree[0];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowThree[i] = temp * matrix.rowOne[i] - matrix.rowThree[i];
+    }
+    matrices.add(matrix.copyMatrix());
+
+    temp = matrix.rowTwo[1];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowTwo[i] /= temp;
+    }
+    matrices.add(matrix.copyMatrix());
+
+    temp = matrix.rowOne[1];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowOne[i] = temp * matrix.rowTwo[i] - matrix.rowOne[i];
+    }
+    matrices.add(matrix.copyMatrix());
+
+    temp = matrix.rowThree[1];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowThree[i] = temp * matrix.rowTwo[i] - matrix.rowThree[i];
+    }
+    matrices.add(matrix.copyMatrix());
+
+    temp = matrix.rowThree[2];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowThree[i] /= temp;
+    }
+    matrices.add(matrix.copyMatrix());
+
+    temp = matrix.rowTwo[2];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowTwo[i] = temp * matrix.rowThree[i] - matrix.rowTwo[i];
+    }
+    matrices.add(matrix.copyMatrix());
+
+    temp = matrix.rowOne[2];
+    for (int i = 0; i < matrix.rowOne.length; i++) {
+      matrix.rowOne[i] = temp * matrix.rowThree[i] - matrix.rowOne[i];
+    }
+    matrices.add(matrix.copyMatrix());
+
+    x1 = matrix.rowOne[3] / matrix.rowOne[0];
+    x2 = matrix.rowTwo[3] / matrix.rowTwo[1];
+    x3 = matrix.rowThree[3] / matrix.rowThree[2];
+
+    return matrices;
+  }
+
+  void calcCramer() {
+    List<Matrix> matrices = [];
+    matrices.add(matrix.copyMatrix());
+
+    Matrix A =  Matrix();
+    for(int i = 0 ; i<3 ;i++){
+      A.rowOne.add(matrix.rowOne[i]);
+      A.rowTwo.add(matrix.rowTwo[i]);
+      A.rowThree.add(matrix.rowThree[i]);
+    }
+    double aEquivalent = calcAEquivalent(A);
+    matrices.add(A.copyMatrix());
+
+    Matrix A1 = Matrix();
+    A1.rowOne = [matrix.rowOne[3] , A.rowOne[1] , A.rowOne[2]];
+    A1.rowTwo = [matrix.rowTwo[3] , A.rowTwo[1] , A.rowTwo[2]];
+    A1.rowThree = [matrix.rowThree[3] , A.rowThree[1] , A.rowThree[2]];
+
+    double a1Equivalent = calcAEquivalent(A1);
+    matrices.add(A1.copyMatrix());
+
+
+    Matrix A2 = Matrix();
+    A2.rowOne = [ A.rowOne[0] , matrix.rowOne[3] , A.rowOne[2]];
+    A2.rowTwo = [ A.rowTwo[0] , matrix.rowTwo[3] , A.rowTwo[2]];
+    A2.rowThree = [ A.rowThree[0] , matrix.rowThree[3] , A.rowThree[2]];
+
+    double a2Equivalent = calcAEquivalent(A2);
+    matrices.add(A2.copyMatrix());
+
+
+    Matrix A3 = Matrix();
+    A3.rowOne = [ A.rowOne[0]  , A.rowOne[1] , matrix.rowOne[3]];
+    A3.rowTwo = [ A.rowTwo[0]  , A.rowTwo[1] , matrix.rowTwo[3]];
+    A3.rowThree = [ A.rowThree[0]  , A.rowThree[1], matrix.rowThree[3]];
+
+    double a3Equivalent = calcAEquivalent(A3);
+    matrices.add(A3.copyMatrix());
+
+    x1 = a1Equivalent / aEquivalent;
+    x2 = a2Equivalent / aEquivalent;
+    x3 = a3Equivalent / aEquivalent;
+
+    print(x1);
+    print(x2);
+    print(x3);
 
   }
 
-  // // function to calculate the matrix using gauss elimination with partial pivoting
-  // List<Matrix> gaussEliminationWithPartialPivoting() {
-  //
-  //   List<Matrix> matrices = [];
-  //
-  //   matrices.add(matrix.copyMatrix());
-  //   matrix.sortMatrixFirstTime();
-  //   matrices.add(matrix.copyMatrix());
-  //   m21 = matrix.rowTwo[0] / matrix.rowOne[0];
-  //   m31 = matrix.rowThree[0] / matrix.rowOne[0];
-  //   m21.floorToDouble();
-  //   m31.floorToDouble();
-  //
-  //   for (int i = 0; i < matrix.rowOne.length; i++) {
-  //     matrix.rowTwo[i] = matrix.rowTwo[i] - (m21 * matrix.rowOne[i]);
-  //     matrix.rowTwo[i].floorToDouble();
-  //     matrix.rowThree[i] = matrix.rowThree[i] - (m31 * matrix.rowOne[i]);
-  //     matrix.rowThree[i].floorToDouble();
-  //   }
-  //   matrices.add(matrix.copyMatrix());
-  //
-  //   matrix.sortMatrixSecondTime();
-  //
-  //   matrices.add(matrix.copyMatrix());
-  //
-  //   m32 = matrix.rowThree[1] / matrix.rowTwo[1];
-  //   m32.floorToDouble();
-  //
-  //   for (int i = 0; i < matrix.rowThree.length; i++) {
-  //     matrix.rowThree[i] = (matrix.rowThree[i] - (m32 * matrix.rowTwo[i]));
-  //     matrix.rowThree[i].floorToDouble();
-  //   }
-  //
-  //   matrices.add(matrix.copyMatrix());
-  //
-  //   x3 = matrix.rowThree[3] / matrix.rowThree[2];
-  //   x2 = (matrix.rowTwo[3] - (x3 * matrix.rowTwo[2])) / (matrix.rowTwo[1]);
-  //   x1 = (matrix.rowOne[3] - ((x2 * matrix.rowOne[1]) + (x3 * matrix.rowOne[2]))) / (matrix.rowOne[0]);
-  //
-  //   return matrices;
-  // }
+
+  double calcAEquivalent (Matrix matrix){
+    double x = (matrix.rowOne[0] * ((matrix.rowTwo[1] * matrix.rowThree[2]) - (matrix.rowTwo[2] * matrix.rowThree[1])))
+        - (matrix.rowOne[1] * ((matrix.rowTwo[0] * matrix.rowThree[2]) - (matrix.rowTwo[2] * matrix.rowThree[0])))
+        + (matrix.rowOne[2] * ((matrix.rowTwo[0] * matrix.rowThree[1]) - (matrix.rowTwo[1] * matrix.rowThree[0])));
+    return x;
+  }
 
 }

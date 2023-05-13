@@ -17,7 +17,7 @@ class MatrixTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 20 , horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 10 , horizontal: 10),
       child: TextFormField(
           validator: (value) => validationFunction(value),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -33,7 +33,7 @@ class MatrixTextField extends StatelessWidget {
           decoration: InputDecoration(
             contentPadding:const EdgeInsets.all(30),
             filled: true,
-            fillColor: MyTheme.green,
+            fillColor: MyTheme.purple,
             hintText: title,
             hintStyle: const TextStyle(
               color: MyTheme.gray,
@@ -43,7 +43,7 @@ class MatrixTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
               borderSide:const BorderSide(
                 width: 2,
-                color: MyTheme.green
+                color: MyTheme.white
               )
             ),
             focusedErrorBorder: OutlineInputBorder(
@@ -57,7 +57,7 @@ class MatrixTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 borderSide:const BorderSide(
                     width: 2,
-                    color: MyTheme.green
+                    color: MyTheme.white
                 )
             ),
             errorBorder:OutlineInputBorder(
@@ -71,7 +71,7 @@ class MatrixTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 borderSide:const BorderSide(
                     width: 2,
-                    color: MyTheme.green
+                    color: MyTheme.white
                 )
             ),
 
