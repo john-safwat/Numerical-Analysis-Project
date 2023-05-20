@@ -50,6 +50,7 @@ class _MatrixScreenState extends State<MatrixScreen> implements MatrixNavigator{
             )
         ),
         child: Scaffold(
+          appBar: AppBar(),
           backgroundColor: Colors.transparent,
           body: Consumer<MatriXViewModel>(
             builder: (context, value, child) => Column(

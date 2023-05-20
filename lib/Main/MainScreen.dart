@@ -15,6 +15,7 @@ class MainScreen extends StatelessWidget {
         )
       ),
       child: Scaffold(
+        appBar: AppBar(),
         backgroundColor: Colors.transparent,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

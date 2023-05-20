@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:numericalanalysis/Calculator/CalculatorScreenView.dart';
 import 'package:numericalanalysis/Form/FormScreen.dart';
+import 'package:numericalanalysis/Home/HomeScreen.dart';
 import 'package:numericalanalysis/Main/MainScreen.dart';
 import 'package:numericalanalysis/Matrix/MatrixView.dart';
 import 'package:numericalanalysis/Provider/MatricesProvider.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
+          HomeScreen.routeName :(_) => HomeScreen(),
           MainScreen.routeName :(_) => MainScreen(),
           FormScreen.routeName :(_) => FormScreen(),
           CalculatorScreen.routeName :(_) => CalculatorScreen(),
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
           MatricesResultScreen.routeName :(_) => MatricesResultScreen(),
         },
         theme: MyTheme.themeData,
-        initialRoute: MainScreen.routeName,
+        initialRoute: HomeScreen.routeName,
 
     );
 
