@@ -21,7 +21,7 @@ class NonlinearEquationsProvider extends ChangeNotifier {
       falsePosition!.calcFalsePosition();
     }else if (sampleFixedPoint != null){
       sampleFixedPoint!.equation = equation;
-      sampleFixedPoint!.calcSampleFixedPoint();
+      // sampleFixedPoint!.calcSampleFixedPoint();
     }else if (newton != null){
       newton!.equation = equation;
       newton!.calcNewton();

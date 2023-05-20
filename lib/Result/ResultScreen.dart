@@ -126,13 +126,13 @@ class _ResultScreenState extends State<ResultScreen> {
         ),
       );
     } else if (provider.sampleFixedPoint != null) {
+      provider.sampleFixedPoint!.calcSampleFixedPoint();
       return Scaffold(
         appBar: AppBar(
           title: const Text("Sample Fixed Point"),
         ),
         body:  Column(
           children: [
-
             ShowRootWidget(title: provider.sampleFixedPoint!.x[provider.sampleFixedPoint!.x.length-1]),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
