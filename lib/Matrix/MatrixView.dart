@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:numericalanalysis/Matrix/MatrixNavigator.dart';
 import 'package:numericalanalysis/Matrix/Widgets/Form.dart';
 import 'package:numericalanalysis/Matrix/Widgets/MatrixButton.dart';
 import 'package:numericalanalysis/Matrix/MatrixViweModel.dart';
+import 'package:numericalanalysis/Provider/MatricesProvider.dart';
+import 'package:numericalanalysis/Result/MatricesResultScreen.dart';
 import 'package:provider/provider.dart';
 
 class MatrixScreen extends StatefulWidget {
@@ -12,20 +15,31 @@ class MatrixScreen extends StatefulWidget {
   State<MatrixScreen> createState() => _MatrixScreenState();
 }
 
-class _MatrixScreenState extends State<MatrixScreen> {
+class _MatrixScreenState extends State<MatrixScreen> implements MatrixNavigator{
   MatriXViewModel viewModel = MatriXViewModel();
 
+  @override
+  void initState() {
+    super.initState();
+    viewModel.provider = Provider.of<MatricesProvider>(context , listen: false);
+    viewModel.navigator = this;
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    viewModel.navigator = null ;
+    viewModel.navigator = null ;
+  }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> methods = [
       MyForm(viewModel),
-      MatrixButton("assets/images/Gauss.png" , viewModel.valid),
-      MatrixButton("assets/images/GaussJordan.png" , viewModel.valid),
-      MatrixButton("assets/images/LU.png" , viewModel.valid),
-      MatrixButton("assets/images/Cramer.png" , viewModel.valid),
+      MatrixButton("assets/images/Gauss.png" , viewModel.gaussElimination),
+      MatrixButton("assets/images/GaussJordan.png" , viewModel.calcGaussJordan),
+      MatrixButton("assets/images/LU.png" , viewModel.calcMatrixWithLU),
+      MatrixButton("assets/images/Cramer.png" , viewModel.calcCramer),
     ];
-
     return ChangeNotifierProvider(
       create: (context) => viewModel,
       child: Container(
@@ -63,6 +77,10 @@ class _MatrixScreenState extends State<MatrixScreen> {
     );
   }
 
+  @override
+  void goToResultScreen() {
+    Navigator.pushNamed(context, MatricesResultScreen.routeName);
+  }
 
 }
 

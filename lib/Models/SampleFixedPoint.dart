@@ -22,49 +22,49 @@ class SampleFixedPoint {
     cm.bindVariable(x,Number(xValue));
     return exp.evaluate(EvaluationType.REAL, cm);
   }
-
-  void simplifyEquation(){
-    var maxPow = 1;
-    // for(int i = 0 ; i<equation.length ;i++){
-    //   if(equation[i] == '^'){
-    //     if(double.parse(equation[i+1]) > maxPow){
-    //
-    //     }
-    //   }
-    // }
-
-    List<String> term = equation.split(RegExp(r'[+\-]'));
-
-    if (equation[0]=="-"){
-      term[1] = "-${term[1]}";
-      term.removeAt(0);
-    }
-
-    List<String> values = [];
-
-    for (int i = 0  ; i<term.length ; i++){
-      if(term[i].contains("x^")){
-        for(int j = 0 ;j<term[i].length ; j++){
-          if(term[i][j] == "^"){
-            var value = '';
-            for(int k =j+1 ; k<term[i].length ; k++){
-              value = value + term[i][k] ;
-            }
-            values.add(value);
-            break;
-          }
-        }
-      }
-    }
-
-    for(int i = 0 ; i<values.length;i++ ){
-      debugPrint(values[i]);
-    }
-
-  }
+  //
+  // void simplifyEquation(){
+  //   var maxPow = 1;
+  //   // for(int i = 0 ; i<equation.length ;i++){
+  //   //   if(equation[i] == '^'){
+  //   //     if(double.parse(equation[i+1]) > maxPow){
+  //   //
+  //   //     }
+  //   //   }
+  //   // }
+  //
+  //   List<String> term = equation.split(RegExp(r'[+\-]'));
+  //
+  //   if (equation[0]=="-"){
+  //     term[1] = "-${term[1]}";
+  //     term.removeAt(0);
+  //   }
+  //
+  //   List<String> values = [];
+  //
+  //   for (int i = 0  ; i<term.length ; i++){
+  //     if(term[i].contains("x^")){
+  //       for(int j = 0 ;j<term[i].length ; j++){
+  //         if(term[i][j] == "^"){
+  //           var value = '';
+  //           for(int k =j+1 ; k<term[i].length ; k++){
+  //             value = value + term[i][k] ;
+  //           }
+  //           values.add(value);
+  //           break;
+  //         }
+  //       }
+  //     }
+  //   }
+  //
+  //   for(int i = 0 ; i<values.length;i++ ){
+  //     debugPrint(values[i]);
+  //   }
+  //
+  // }
 
   void calcSampleFixedPoint(){
-    simplifyEquation();
+    // simplifyEquation();
     if (iterationLimit != 0){
       for(int i = 0 ; i< iterationLimit! ; i++ ){ // 0 = x = fx = error
         iterations.add(i);

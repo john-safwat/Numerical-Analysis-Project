@@ -39,74 +39,83 @@ class _FormScreenState extends State<FormScreen> implements FormNavigator{
   @override
   Widget build(BuildContext context) {
     var title = ModalRoute.of(context)?.settings.arguments as String;
-    var provider = Provider.of<NonlinearEquationsProvider>(context);
+    var provider = Provider.of<NonlinearEquationsProvider>(context , listen: false);
     return ChangeNotifierProvider(
       create: (context) => viewModel,
-      child: Scaffold(
-        body: Form(
-          key: formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+      child: Container(
+        decoration:const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/background.jpg' ,),
+                fit: BoxFit.cover
+            )
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Form(
+            key: formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              const Spacer(),
-              if (title == "Bisection" || title == 'FalsePosition') ...[
-                myTextFormField("XL" , viewModel.isValid , xlController),
-                myTextFormField("XU" , viewModel.isValid , xuController),
-              ] else if (title == "SampleFixedPoint" || title == "Newton") ...[
-                myTextFormField("X" , viewModel.isValid , xController),
-              ] else ...[
-                myTextFormField("X of i-1" , viewModel.isValid , xOfIMin1Controller),
-                myTextFormField("X of i" , viewModel.isValid , xOfIlController),
+                const Spacer(),
+                if (title == "Bisection" || title == 'FalsePosition') ...[
+                  myTextFormField("XL" , viewModel.isValid , xlController),
+                  myTextFormField("XU" , viewModel.isValid , xuController),
+                ] else if (title == "SampleFixedPoint" || title == "Newton") ...[
+                  myTextFormField("X" , viewModel.isValid , xController),
+                ] else ...[
+                  myTextFormField("X of i-1" , viewModel.isValid , xOfIMin1Controller),
+                  myTextFormField("X of i" , viewModel.isValid , xOfIlController),
+                ],
+                myTextFormField('Error' , viewModel.isValid , errorController),
+                myTextFormField('Number Of iterations (Optional)' , viewModel.isValidIteration , iterationController),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {viewModel.goToMainScreen(provider);},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(MyTheme.red),
+                        ),
+                        child: const Icon(Icons.navigate_before)),
+                      ElevatedButton(
+                        onPressed: () {
+                          viewModel.goToHomeScreen(
+                            formKey.currentState!.validate() ,
+                            provider,
+                            type: title ,
+                            x: xController.text,
+                            xl: xlController.text,
+                            xu: xuController.text,
+                            xOfI: xOfIlController.text,
+                            xOfIMin1: xOfIMin1Controller.text,
+                            error: errorController.text,
+                            numberOfIterations: iterationController.text,
+                          );
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(MyTheme.red),
+                        ),
+                        child: const Icon(Icons.navigate_next))
+                    ],
+                  ),
+                )
               ],
-              myTextFormField('Error' , viewModel.isValid , errorController),
-              myTextFormField('Number Of iterations (Optional)' , viewModel.isValidIteration , iterationController),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {viewModel.goToMainScreen(provider);},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(MyTheme.red),
-                      ),
-                      child: const Icon(Icons.navigate_before)),
-                    ElevatedButton(
-                      onPressed: () {
-                        viewModel.goToHomeScreen(
-                          formKey.currentState!.validate() ,
-                          provider,
-                          type: title ,
-                          x: xController.text,
-                          xl: xlController.text,
-                          xu: xuController.text,
-                          xOfI: xOfIlController.text,
-                          xOfIMin1: xOfIMin1Controller.text,
-                          error: errorController.text,
-                          numberOfIterations: iterationController.text,
-                        );
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(MyTheme.red),
-                      ),
-                      child: const Icon(Icons.navigate_next))
-                  ],
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),
